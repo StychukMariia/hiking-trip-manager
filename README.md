@@ -1,0 +1,1 @@
+"# hiking-trip-manager" 
