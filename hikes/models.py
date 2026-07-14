@@ -48,3 +48,30 @@ class Hiker(AbstractUser):
 
     def get_absolute_url(self):
         return reverse("hikes:hiker-detail", kwargs={"pk": self.pk})
+
+
+class Expedition(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    date = models.DateField(null=True, blank=True)
+    difficulty = models.ForeignKey(
+        DifficultyLevel,
+        on_delete=models.CASCADE,
+        related_name="expeditions"
+    )
+    region = models.ForeignKey(
+        Region,
+        on_delete=models.CASCADE,
+        related_name="expeditions"
+    )
+    hikers = models.ManyToManyField(
+        Hiker,
+        related_name="expeditions",
+        blank=True
+    )
+
+    class Meta:
+        ordering = ["date"]
+
+    def __str__(self):
+        return self.title
