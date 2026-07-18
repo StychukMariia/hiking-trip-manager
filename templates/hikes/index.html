@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hiking Trip Manager Home</h1>
+    <p>Welcome to Best Hikes Ever!</p>
+    <h2>Dynamic content</h2>
+    <p>The hiking trip manager has the following number of records:</p>
+    <ul>
+        <li><strong>Hikers:</strong> {{ num_hikers }}</li>
+        <li><strong>Expeditions:</strong> {{ num_expeditions }}</li>
+        <li><strong>Regions:</strong> {{  num_regions }}</li>
+    </ul>
+
+    <p>You have visited this page
+        {{ num_visits }} time{{ num_visits|pluralize }}.
+    </p>
+
+{% endblock %}
