@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from hikes.models import (
     Hiker,
@@ -23,3 +24,11 @@ def index(request):
     }
 
     return render(request, "hikes/index.html", context=context)
+
+
+class HikerListView(ListView):
+    model = Hiker
+
+
+class HikerDetailView(DetailView):
+    model = Hiker

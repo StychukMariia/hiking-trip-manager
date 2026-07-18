@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Hiker List
+  </h1>
+
+  {% if hiker_list %}
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Fitness level</th>
+    </tr>
+  {% for hiker in hiker_list %}
+    <tr>
+      <td>{{ hiker.id }}</td>
+      <td><a href="{{ hiker.get_absolute_url }}">{{ hiker.username }}</a></td>
+      <td>{{ hiker.first_name }}</td>
+      <td>{{ hiker.last_name }}</td>
+      <td>{{ hiker.fitness_level }}</td>
+    </tr>
+  {% endfor %}
+
+  </table>
+  {% else %}
+    <p>There are no drivers in the service.</p>
+  {% endif %}
+{% endblock %}
