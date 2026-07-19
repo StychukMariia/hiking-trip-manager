@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ expedition.title }}</h1>
+  <p>Region: {{ expedition.region.name }}, {{ expedition.region.country }}</p>
+  <p>Date: {{ expedition.date }}</p>
+  <p>Difficulty: {{ expedition.difficulty.name }}</p>
+  <h1>Hikers</h1>
+  <hr>
+  <ul>
+    {% for hiker in expedition.hikers.all %}
+      <li>{{ hiker.username }} ({{ hiker.first_name }} {{ hiker.last_name }})</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

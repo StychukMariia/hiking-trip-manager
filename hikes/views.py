@@ -36,3 +36,11 @@ class HikerListView(ListView):
 
 class HikerDetailView(DetailView):
     model = Hiker
+
+
+class ExpeditionListView(ListView):
+    model = Expedition
+
+
+class ExpeditionDetailView(DetailView):
+    model = Expedition

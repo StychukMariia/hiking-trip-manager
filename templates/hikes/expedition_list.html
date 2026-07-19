@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Expedition list</h1>
+
+  {% if expedition_list %}
+    <ul>
+      {% for expedition in expedition_list %}
+        <li>
+          <a href="{% url "hikes:expedition-detail" pk=expedition.id %} ">{{ expedition.id }}</a>
+          {{ expedition.title }} ({{ expedition.region.name }}) - {{ expedition.date }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no expeditions in the manager!</p>
+  {% endif %}
+{% endblock %}
