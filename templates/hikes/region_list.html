@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Region List</h1>
+
+  {% if region_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+      </tr>
+
+      {% for region in region_list %}
+        <tr>
+          <td>
+              {{ region.id }}
+          </td>
+          <td>
+              {{ region.name }}
+          </td>
+          <td>
+              {{ region.country }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no regions in the manager.</p>
+  {% endif %}
+{% endblock %}

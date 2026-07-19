@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 from hikes.models import (
     Hiker,
     Expedition,
-    Region
+    Region, DifficultyLevel
 )
 
 
@@ -24,6 +24,10 @@ def index(request):
     }
 
     return render(request, "hikes/index.html", context=context)
+
+
+class RegionListView(ListView):
+    model = Region
 
 
 class HikerListView(ListView):
