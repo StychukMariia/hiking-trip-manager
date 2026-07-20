@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from hikes.forms import ExpeditionForm
 from hikes.models import (
     Hiker,
     Expedition,
@@ -65,3 +66,20 @@ class ExpeditionListView(LoginRequiredMixin, ListView):
 
 class ExpeditionDetailView(LoginRequiredMixin, DetailView):
     model = Expedition
+
+
+class ExpeditionCreateView(LoginRequiredMixin, CreateView):
+    model = Expedition
+    form_class = ExpeditionForm
+    success_url = reverse_lazy("hikes:expedition-list")
+
+
+class ExpeditionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Expedition
+    form_class = ExpeditionForm
+    success_url = reverse_lazy("hikes:expedition-list")
+
+
+class ExpeditionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Expedition
+    success_url = reverse_lazy("hikes:expedition-list")
