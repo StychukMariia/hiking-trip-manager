@@ -1,13 +1,16 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from hikes.models import (
     Hiker,
     Expedition,
-    Region, DifficultyLevel
+    Region,
 )
 
 
+@login_required
 def index(request):
     num_hikers = Hiker.objects.count()
     num_expeditions = Expedition.objects.count()
@@ -26,21 +29,21 @@ def index(request):
     return render(request, "hikes/index.html", context=context)
 
 
-class RegionListView(ListView):
+class RegionListView(LoginRequiredMixin, ListView):
     model = Region
 
 
-class HikerListView(ListView):
+class HikerListView(LoginRequiredMixin, ListView):
     model = Hiker
 
 
-class HikerDetailView(DetailView):
+class HikerDetailView(LoginRequiredMixin, DetailView):
     model = Hiker
 
 
-class ExpeditionListView(ListView):
+class ExpeditionListView(LoginRequiredMixin, ListView):
     model = Expedition
 
 
-class ExpeditionDetailView(DetailView):
+class ExpeditionDetailView(LoginRequiredMixin, DetailView):
     model = Expedition
