@@ -1,7 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Region List</h1>
+  <h1>
+    Region List
+    <a href="{% url "hikes:region-create" %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
 
   {% if region_list %}
     <table class="table">
@@ -9,6 +14,8 @@
         <th>ID</th>
         <th>Name</th>
         <th>Country</th>
+        <th>Update</th>
+        <th>Delete</th>
       </tr>
 
       {% for region in region_list %}
@@ -21,6 +28,16 @@
           </td>
           <td>
               {{ region.country }}
+          </td>
+          <td>
+            <a href="{% url "hikes:region-update" pk=region.id %}">
+              Update
+            </a>
+          </td>
+          <td>
+            <a style="color: red" href="{% url "hikes:region-delete" pk=region.id %}">
+              Delete
+            </a>
           </td>
         </tr>
       {% endfor %}

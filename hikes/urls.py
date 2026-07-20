@@ -5,7 +5,7 @@ from .views import (
     HikerDetailView,
     RegionListView,
     ExpeditionListView,
-    ExpeditionDetailView,
+    ExpeditionDetailView, RegionCreateView, RegionUpdateView, RegionDeleteView,
 )
 
 app_name = "hikes"
@@ -13,6 +13,21 @@ app_name = "hikes"
 urlpatterns = [
     path("", index, name="index"),
     path("regions/", RegionListView.as_view(), name="region-list"),
+    path(
+        "regions/create/",
+        RegionCreateView.as_view(),
+        name="region-create"
+    ),
+    path(
+        "regions/<int:pk>/update/",
+        RegionUpdateView.as_view(),
+        name="region-update"
+    ),
+    path(
+        "regions/<int:pk>/delete/",
+        RegionDeleteView.as_view(),
+        name="region-delete"
+    ),
     path("hikers/", HikerListView.as_view(), name="hiker-list"),
     path(
         "hikers/<int:pk>/",

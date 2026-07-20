@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from hikes.models import (
     Hiker,
@@ -31,6 +32,23 @@ def index(request):
 
 class RegionListView(LoginRequiredMixin, ListView):
     model = Region
+
+
+class RegionCreateView(LoginRequiredMixin, CreateView):
+    model = Region
+    fields = "__all__"
+    success_url = reverse_lazy("hikes:region-list")
+
+
+class RegionUpdateView(LoginRequiredMixin, UpdateView):
+    model = Region
+    fields = "__all__"
+    success_url = reverse_lazy("hikes:region-list")
+
+
+class RegionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Region
+    success_url = reverse_lazy("hikes:region-list")
 
 
 class HikerListView(LoginRequiredMixin, ListView):
