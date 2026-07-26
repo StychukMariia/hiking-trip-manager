@@ -2,9 +2,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+)
 
-from hikes.forms import ExpeditionForm
+from hikes.forms import (
+    ExpeditionForm,
+    HikerCreationForm,
+    HikerUpdateForm
+)
 from hikes.models import (
     Hiker,
     Expedition,
@@ -58,6 +68,21 @@ class HikerListView(LoginRequiredMixin, ListView):
 
 class HikerDetailView(LoginRequiredMixin, DetailView):
     model = Hiker
+
+
+class HikerCreateView(LoginRequiredMixin, CreateView):
+    model = Hiker
+    form_class = HikerCreationForm
+
+
+class HikerUpdateView(LoginRequiredMixin, UpdateView):
+    model = Hiker
+    form_class = HikerUpdateForm
+
+
+class HikerDeleteView(LoginRequiredMixin, DeleteView):
+    model = Hiker
+    success_url = reverse_lazy("hikes:hiker-list")
 
 
 class ExpeditionListView(LoginRequiredMixin, ListView):

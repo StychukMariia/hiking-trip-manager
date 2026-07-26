@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Username: {{ hiker.username }}</h1>
+  <h1>
+    Username: {{ hiker.username }}
+    <a href="{% url "hikes:hiker-update" pk=hiker.id %}" class="btn btn-secondary link-to-page">
+      Update
+    </a>
+    <a href="{% url "hikes:hiker-delete" pk=hiker.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+  </h1>
   <p><strong>First name:</strong> {{ hiker.first_name }}</p>
   <p><strong>Last name:</strong> {{ hiker.last_name }}</p>
   <p><strong>Fitness level</strong> {{ hiker.fitness_level }}</p>
