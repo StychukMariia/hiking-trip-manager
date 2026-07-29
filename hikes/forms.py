@@ -30,3 +30,26 @@ class HikerUpdateForm(forms.ModelForm):
     class Meta:
         model = Hiker
         fields = ["fitness_level", "has_tent"]
+
+
+
+class HikerUsernameSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by username"}
+        ),
+    )
+
+
+class RegionNameSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by region name"}
+        )
+    )
