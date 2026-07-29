@@ -44,6 +44,7 @@ def index(request):
 
 class RegionListView(LoginRequiredMixin, ListView):
     model = Region
+    paginate_by = 10
 
     def get_context_data(self, *, object_list = None, **kwargs):
         context = super(RegionListView, self).get_context_data(**kwargs)
@@ -83,6 +84,7 @@ class RegionDeleteView(LoginRequiredMixin, DeleteView):
 
 class HikerListView(LoginRequiredMixin, ListView):
     model = Hiker
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(HikerListView, self).get_context_data(**kwargs)
@@ -124,6 +126,7 @@ class HikerDeleteView(LoginRequiredMixin, DeleteView):
 
 class ExpeditionListView(LoginRequiredMixin, ListView):
     model = Expedition
+    paginate_by = 10
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ExpeditionListView, self).get_context_data(**kwargs)
