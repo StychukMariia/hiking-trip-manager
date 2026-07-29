@@ -50,6 +50,17 @@ class RegionNameSearchForm(forms.Form):
         required=False,
         label="",
         widget=forms.TextInput(
-            attrs={"placeholder": "Search by region name"}
+            attrs={"placeholder": "Search by name"}
+        )
+    )
+
+
+class ExpeditionTitleSearchForm(forms.Form):
+    title = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={"placeholder": "Search by title"}
         )
     )

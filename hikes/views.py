@@ -13,7 +13,7 @@ from django.views.generic import (
 from hikes.forms import (
     ExpeditionForm,
     HikerCreationForm,
-    HikerUpdateForm, HikerUsernameSearchForm, RegionNameSearchForm
+    HikerUpdateForm, HikerUsernameSearchForm, RegionNameSearchForm, ExpeditionTitleSearchForm
 )
 from hikes.models import (
     Hiker,
@@ -123,6 +123,24 @@ class HikerDeleteView(LoginRequiredMixin, DeleteView):
 
 class ExpeditionListView(LoginRequiredMixin, ListView):
     model = Expedition
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ExpeditionListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+
+        context["search_form"] = ExpeditionTitleSearchForm(
+            initial={"title": title}
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Expedition.objects.all()
+        form = ExpeditionTitleSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                title__icontains=form.cleaned_data["title"]
+            )
+        return queryset
 
 
 class ExpeditionDetailView(LoginRequiredMixin, DetailView):
