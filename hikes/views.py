@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -162,3 +163,13 @@ class ExpeditionUpdateView(LoginRequiredMixin, UpdateView):
 class ExpeditionDeleteView(LoginRequiredMixin, DeleteView):
     model = Expedition
     success_url = reverse_lazy("hikes:expedition-list")
+
+
+@login_required
+def toggle_participation_to_expedition(request, pk):
+    hiker = Hiker.objects.get(id=request.user.id)
+    if Expedition.objects.get(id=pk) in hiker.expeditions.all():
+        hiker.expeditions.remove(pk)
+    else:
+        hiker.expeditions.add(pk)
+    return HttpResponseRedirect(reverse_lazy("hikes:expedition-detail", args=[pk]))

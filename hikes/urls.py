@@ -13,7 +13,7 @@ from .views import (
     ExpeditionCreateView,
     ExpeditionUpdateView,
     HikerDeleteView,
-    HikerCreateView, HikerUpdateView,
+    HikerCreateView, HikerUpdateView, toggle_participation_to_expedition,
 )
 
 app_name = "hikes"
@@ -81,5 +81,10 @@ urlpatterns = [
         "expeditions/<int:pk>/delete/",
         ExpeditionDeleteView.as_view(),
         name="expedition-delete"
+    ),
+    path(
+        "expeditions/<int:pk>/toggle_participation/",
+        toggle_participation_to_expedition,
+        name="expedition-toggle-participation"
     ),
 ]

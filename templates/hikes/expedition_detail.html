@@ -19,7 +19,22 @@
   <p>Region: {{ expedition.region.name }}, {{ expedition.region.country }}</p>
   <p>Date: {{ expedition.date }}</p>
   <p>Difficulty: {{ expedition.difficulty.name }}</p>
-  <h1>Hikers</h1>
+  <h1>
+    Hikers
+
+    {% now "Y-m-d" as current_date %}
+    {% if expedition.date|date:"Y-m-d" > current_date %}
+      {% if expedition in user.expeditions.all %}
+        <a href="{% url "hikes:expedition-toggle-participation" pk=expedition.id %}" class="btn btn-danger link-to-page">
+          Leave the expedition
+        </a>
+      {% else %}
+        <a href="{% url "hikes:expedition-toggle-participation" pk=expedition.id %}" class="btn btn-success link-to-page">
+          Join the expedition
+        </a>
+      {% endif %}
+    {% endif %}
+  </h1>
   <hr>
   <ul>
     {% for hiker in expedition.hikers.all %}
