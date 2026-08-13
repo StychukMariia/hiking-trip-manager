@@ -1,18 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hiking Trip Manager Home</h1>
-    <p>Welcome to Best Hikes Ever!</p>
-    <h2>Dynamic content</h2>
-    <p>The hiking trip manager has the following number of records:</p>
-    <ul>
-        <li><strong>Hikers:</strong> {{ num_hikers }}</li>
-        <li><strong>Expeditions:</strong> {{ num_expeditions }}</li>
-        <li><strong>Regions:</strong> {{  num_regions }}</li>
-    </ul>
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 70vh;">
 
-    <p>You have visited this page
-        {{ num_visits }} time{{ num_visits|pluralize }}.
-    </p>
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold text-white text-shadow mb-2">Hiking Trip Manager</h1>
+        <p>Welcome to Best Hikes Ever!</p>
+    </div>
 
+    <div class="card card-glass shadow p-4 w-100" style="max-width: 800px;">
+        <div class="row text-center">
+
+            <div class="col-md-4 mb-3 mb-md-0 border-end border-secondary">
+                <h2 class="display-6 fw-bold text-primary mb-1">{{ num_hikers }}</h2>
+                <h5 class="fw-semibold mb-1">Hikers</h5>
+                <p class="text-light mb-0" style="font-size: 0.85rem;">Registered adventurers on the platform</p>
+            </div>
+
+            <div class="col-md-4 mb-3 mb-md-0 border-end border-secondary">
+                <h2 class="display-6 fw-bold text-primary mb-1">{{ num_expeditions }}</h2>
+                <h5 class="fw-semibold mb-1">Expeditions</h5>
+                <p class="text-light mb-0" style="font-size: 0.85rem;">Amazing trips planned and completed</p>
+            </div>
+
+            <div class="col-md-4">
+                <h2 class="display-6 fw-bold text-primary mb-1">{{ num_regions }}</h2>
+                <h5 class="fw-semibold mb-1">Regions</h5>
+                <p class="text-light mb-0" style="font-size: 0.85rem;">Beautiful places available to explore</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <p class="text-light opacity-75 small">You have visited this page {{ num_visits }} times.</p>
+    </div>
+
+</div>
 {% endblock %}

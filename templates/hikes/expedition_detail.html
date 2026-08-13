@@ -1,27 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>
-    {{ expedition.title }}
-    <a
-        href="{% url "hikes:expedition-update" pk=expedition.id %}"
-        class="btn btn-secondary link-to-page"
-    >
-      Update
-    </a>
-    <a
-        href="{% url "hikes:expedition-delete" pk=expedition.id %}"
-        class="btn btn-danger link-to-page"
-    >
-      Delete
-    </a>
-  </h1>
+  <h1>{{ expedition.title }}</h1>
   <p>Region: {{ expedition.region.name }}, {{ expedition.region.country }}</p>
   <p>Date: {{ expedition.date }}</p>
   <p>Difficulty: {{ expedition.difficulty.name }}</p>
-  <h1>
-    Hikers
-
+  <p>Description: {{ expedition.description }}</p>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Hikers</h1>
     {% now "Y-m-d" as current_date %}
     {% if expedition.date|date:"Y-m-d" > current_date %}
       {% if expedition in user.expeditions.all %}
@@ -34,11 +20,25 @@
         </a>
       {% endif %}
     {% endif %}
-  </h1>
+  </div>
   <hr>
   <ul>
     {% for hiker in expedition.hikers.all %}
       <li>{{ hiker.username }} ({{ hiker.first_name }} {{ hiker.last_name }})</li>
     {% endfor %}
   </ul>
+  <div class="d-flex gap-2 mb-5">
+    <a
+        href="{% url 'hikes:expedition-update' pk=expedition.id %}"
+        class="btn btn-secondary link-to-page"
+    >
+      Update
+    </a>
+    <a
+        href="{% url 'hikes:expedition-delete' pk=expedition.id %}"
+        class="btn btn-danger link-to-page"
+    >
+      Delete
+    </a>
+</div>
 {% endblock %}
