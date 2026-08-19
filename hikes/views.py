@@ -107,6 +107,10 @@ class HikerListView(LoginRequiredMixin, ListView):
 
 class HikerDetailView(LoginRequiredMixin, DetailView):
     model = Hiker
+    queryset = Hiker.objects.all().prefetch_related(
+        "expeditions__region",
+        "expeditions__difficulty"
+    )
 
 
 class HikerCreateView(LoginRequiredMixin, CreateView):
@@ -138,7 +142,7 @@ class ExpeditionListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = Expedition.objects.all()
+        queryset = Expedition.objects.select_related("region", "difficulty")
         form = ExpeditionTitleSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
@@ -149,6 +153,10 @@ class ExpeditionListView(LoginRequiredMixin, ListView):
 
 class ExpeditionDetailView(LoginRequiredMixin, DetailView):
     model = Expedition
+    queryset = Expedition.objects.select_related(
+        "region",
+        "difficulty"
+    ).prefetch_related("hikers")
 
 
 class ExpeditionCreateView(LoginRequiredMixin, CreateView):
@@ -171,7 +179,7 @@ class ExpeditionDeleteView(LoginRequiredMixin, DeleteView):
 @login_required
 def toggle_participation_to_expedition(request, pk):
     hiker = Hiker.objects.get(id=request.user.id)
-    if Expedition.objects.get(id=pk) in hiker.expeditions.all():
+    if request.user.expeditions.filter(id=pk).exists():
         hiker.expeditions.remove(pk)
     else:
         hiker.expeditions.add(pk)
