@@ -26,11 +26,11 @@ class HikerCreationForm(UserCreationForm):
             "has_tent",
         )
 
+
 class HikerUpdateForm(forms.ModelForm):
     class Meta:
         model = Hiker
         fields = ["fitness_level", "has_tent"]
-
 
 
 class HikerUsernameSearchForm(forms.Form):

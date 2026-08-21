@@ -14,7 +14,10 @@ from django.views.generic import (
 from hikes.forms import (
     ExpeditionForm,
     HikerCreationForm,
-    HikerUpdateForm, HikerUsernameSearchForm, RegionNameSearchForm, ExpeditionTitleSearchForm
+    HikerUpdateForm,
+    HikerUsernameSearchForm,
+    RegionNameSearchForm,
+    ExpeditionTitleSearchForm
 )
 from hikes.models import (
     Hiker,
@@ -46,7 +49,7 @@ class RegionListView(LoginRequiredMixin, ListView):
     model = Region
     paginate_by = 5
 
-    def get_context_data(self, *, object_list = None, **kwargs):
+    def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RegionListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
 
@@ -183,4 +186,6 @@ def toggle_participation_to_expedition(request, pk):
         hiker.expeditions.remove(pk)
     else:
         hiker.expeditions.add(pk)
-    return HttpResponseRedirect(reverse_lazy("hikes:expedition-detail", args=[pk]))
+    return HttpResponseRedirect(
+        reverse_lazy("hikes:expedition-detail", args=[pk])
+    )

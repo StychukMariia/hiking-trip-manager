@@ -4,7 +4,11 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 
-from hikes.forms import ExpeditionTitleSearchForm, RegionNameSearchForm, HikerUsernameSearchForm
+from hikes.forms import (
+    ExpeditionTitleSearchForm,
+    RegionNameSearchForm,
+    HikerUsernameSearchForm
+)
 from hikes.models import Region, Hiker, Expedition, DifficultyLevel
 
 REGION_LIST_URL = reverse("hikes:region-list")
@@ -41,6 +45,7 @@ class PublicAccessTest(TestCase):
                 res = self.client.get(url)
                 expected_redirect_url = f"/accounts/login/?next={url}"
                 self.assertRedirects(res, expected_redirect_url)
+
 
 class PrivateRegionTest(TestCase):
     def setUp(self):
@@ -185,7 +190,10 @@ class PrivateExpeditionAssignTest(TestCase):
             args=[self.expedition.id]
         )
         res = self.client.get(url)
-        expected_url = reverse("hikes:expedition-detail", args=[self.expedition.id])
+        expected_url = reverse(
+            "hikes:expedition-detail",
+            args=[self.expedition.id]
+        )
         self.assertRedirects(res, expected_url)
         self.assertIn(self.expedition, self.user.expeditions.all())
 
@@ -196,7 +204,10 @@ class PrivateExpeditionAssignTest(TestCase):
             args=[self.expedition.id]
         )
         res = self.client.get(url)
-        expected_url = reverse("hikes:expedition-detail", args=[self.expedition.id])
+        expected_url = reverse(
+            "hikes:expedition-detail",
+            args=[self.expedition.id]
+        )
         self.assertRedirects(res, expected_url)
         self.assertNotIn(self.expedition, self.user.expeditions.all())
 
@@ -212,7 +223,9 @@ class PrivateExpeditionSearchTest(TestCase):
             name="test_region",
             country="test_country"
         )
-        self.difficulty_level = DifficultyLevel.objects.create(name="test_difficulty_level")
+        self.difficulty_level = DifficultyLevel.objects.create(
+            name="test_difficulty_level"
+        )
         self.expedition1 = Expedition.objects.create(
             title="test1_title1",
             description="test_description1",
@@ -232,7 +245,9 @@ class PrivateExpeditionSearchTest(TestCase):
         res = self.client.get(EXPEDITION_LIST_URL)
         self.assertEqual(res.status_code, 200)
         self.assertIn("search_form", res.context)
-        self.assertIsInstance(res.context["search_form"], ExpeditionTitleSearchForm)
+        self.assertIsInstance(
+            res.context["search_form"], ExpeditionTitleSearchForm
+        )
 
     def test_search_without_parameters_returns_all(self):
         res = self.client.get(EXPEDITION_LIST_URL, {"title": ""})

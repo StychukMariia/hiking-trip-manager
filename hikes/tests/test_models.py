@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from hikes.models import DifficultyLevel, Region, Hiker, Expedition
+from hikes.models import DifficultyLevel, Region, Expedition
 
 
 class TestModel(TestCase):
@@ -25,7 +25,7 @@ class TestModel(TestCase):
             first_name="test_first_name",
             last_name="test_last_name",
             fitness_level="beginner",
-            has_tent = True
+            has_tent="True"
         )
         self.assertEqual(
             str(hiker),
@@ -51,15 +51,14 @@ class TestModel(TestCase):
         username = "test_username"
         password = "test_password"
         fitness_level = "beginner"
-        has_tent = True
+        has_tent = "True"
         hiker = get_user_model().objects.create_user(
             username=username,
             password=password,
             fitness_level=fitness_level,
-            has_tent = has_tent
+            has_tent=has_tent
         )
         self.assertEqual(hiker.username, username)
         self.assertEqual(hiker.fitness_level, fitness_level)
         self.assertEqual(hiker.has_tent, has_tent)
         self.assertTrue(hiker.check_password(password))
-
