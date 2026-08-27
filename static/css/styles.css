@@ -1,0 +1,29 @@
+body{
+  background: url("../img/hiking-bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  -webkit-background-size: cover;
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: darken;
+}
+
+footer{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.table-glass {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    overflow: hidden;
+}
+
+.table-glass th,
+.table-glass td {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.card-glass {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+}

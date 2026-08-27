@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Region List</h1>
+    <a href="{% url "hikes:region-create" %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </div>
+
+  <form action="" method="get" class="d-flex align-items-start gap-2">
+    {{ search_form|crispy }}
+    <input class="btn btn-secondary" type="submit" value="🔍">
+  </form>
+
+  <br>
+
+  {% if region_list %}
+    <table class="table table-glass">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+
+      {% for region in region_list %}
+        <tr>
+          <td>
+              {{ region.id }}
+          </td>
+          <td>
+              {{ region.name }}
+          </td>
+          <td>
+              {{ region.country }}
+          </td>
+          <td>
+            <a href="{% url "hikes:region-update" pk=region.id %}">
+              Update
+            </a>
+          </td>
+          <td>
+            <a style="color: red" href="{% url "hikes:region-delete" pk=region.id %}">
+              Delete
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no regions in the manager.</p>
+  {% endif %}
+{% endblock %}

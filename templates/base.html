@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title>Hiking Trip Manager</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/darkly/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+  <body class="d-flex flex-column min-vh-100">
+    {% block navbar %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'hikes:index' %}">HikingHub</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                {% include "includes/navbar.html" %}
+            </div>
+        </nav>
+    {% endblock %}
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+
+        {% block pagination %}
+            {% include "includes/pagination.html" %}
+        {% endblock %}
+    </main>
+
+    <footer class="text-center text-white py-4 mt-auto">
+      <div class="container">
+        <p class="mb-1">
+          &copy; 2026 Mariia Stychuk
+          <a href="https://github.com/StychukMariia" class="text-decoration-none ms-2">My GitHub</a>
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

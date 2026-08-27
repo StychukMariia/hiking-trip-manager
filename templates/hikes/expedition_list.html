@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Expedition List</h1>
+    <a href="{% url "hikes:expedition-create" %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </div>
+
+  <form action="" method="get" class="d-flex align-items-start gap-2">
+    {{ search_form|crispy }}
+    <input class="btn btn-secondary" type="submit" value="🔍">
+  </form>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3 mb-5">
+    {% for expedition in expedition_list %}
+      <div class="col">
+        <div class="card card-glass h-100 shadow-lg">
+          <div class="card-body">
+            <h5 class="card-title fw-bold mb-3">
+              <a href="#" class="text-decoration-none text-white">{{ expedition.title }}</a>
+            </h5>
+
+            <h6 class="card-subtitle mb-3 text-info">
+              Region: {{ expedition.region }}
+            </h6>
+
+            <p class="card-text mb-3">
+              <span class="badge bg-secondary border border-light opacity-75">
+                Difficulty: {{ expedition.difficulty }}
+              </span>
+            </p>
+
+            <p class="card-text text-light opacity-75 small mb-0">
+              Date: {{ expedition.date }}
+            </p>
+          </div>
+
+          <div class="card-footer bg-transparent border-top border-secondary d-flex justify-content-end gap-2 py-3">
+            <a
+                href="{% url "hikes:expedition-detail" pk=expedition.id %}"
+                class="btn btn-sm btn-outline-light"
+            >Details</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+        <div class="col-12">
+            <p class="text-light">There are no expeditions yet.</p>
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
