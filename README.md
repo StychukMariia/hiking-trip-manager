@@ -2,6 +2,13 @@
 
 A Django-based web application for managing hiking expeditions, hikers, and regions. 
 
+## 🚀 Live Demo
+Сайт успішно розгорнуто та доступний за посиланням: [Hiking Trip Manager on Render](https://hiking-trip-manager.onrender.com)
+
+**👤 Тестовий користувач для перегляду:**
+* **Username:** `stychuk_ivan`
+* **Password:** `54321QwEr`
+
 ## Features
 - **Backend:** Built with Django, utilizing Class-Based Views and customized ORM queries.
 - **Authentication:** Custom User model (`Hiker`) with secure login/logout functionality.
@@ -18,6 +25,6 @@ pip install -r requirements.txt
 ```
 
 **2. Configure Environment Variables:**
-Create a `.env` file in the root directory by copying `.env.sample`:
+Create a `.env` file in the root directory by copying `.env.example`:
 ```bash
 cp .env.sample .env  # On Windows PowerShell: copy .env.sample .env
