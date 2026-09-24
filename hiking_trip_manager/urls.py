@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from hikes.views import HikerCreateView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("signup/", HikerCreateView.as_view(), name="signup"),
     path("", include("hikes.urls", namespace="hikes")),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

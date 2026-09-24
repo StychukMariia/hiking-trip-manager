@@ -30,7 +30,13 @@ class HikerCreationForm(UserCreationForm):
 class HikerUpdateForm(forms.ModelForm):
     class Meta:
         model = Hiker
-        fields = ["fitness_level", "has_tent"]
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "fitness_level",
+            "has_tent"
+        ]
 
 
 class HikerUsernameSearchForm(forms.Form):

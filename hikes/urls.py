@@ -1,4 +1,5 @@
-from django.urls import path
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.urls import path, reverse_lazy
 from .views import (
     index,
     HikerListView,
@@ -13,7 +14,8 @@ from .views import (
     ExpeditionCreateView,
     ExpeditionUpdateView,
     HikerDeleteView,
-    HikerCreateView, HikerUpdateView, toggle_participation_to_expedition,
+    HikerUpdateView,
+    toggle_participation_to_expedition,
 )
 
 app_name = "hikes"
@@ -41,11 +43,6 @@ urlpatterns = [
         "hikers/<int:pk>/",
         HikerDetailView.as_view(),
         name="hiker-detail"
-    ),
-    path(
-        "hikers/create/",
-        HikerCreateView.as_view(),
-        name="hiker-create"
     ),
     path(
         "hikers/<int:pk>/update/",
@@ -86,5 +83,20 @@ urlpatterns = [
         "expeditions/<int:pk>/toggle_participation/",
         toggle_participation_to_expedition,
         name="expedition-toggle-participation"
+    ),
+    path(
+        "hikers/<int:pk>/password/",
+        PasswordChangeView.as_view(
+            template_name="hikes/password_change.html",
+            success_url=reverse_lazy("hikes:password_change_done")
+        ),
+        name="password_change"
+    ),
+    path(
+        "hikers/password/done/",
+        PasswordChangeDoneView.as_view(
+            template_name="hikes/password_change_done.html"
+        ),
+        name="password_change_done"
     ),
 ]

@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -116,19 +116,32 @@ class HikerDetailView(LoginRequiredMixin, DetailView):
     )
 
 
-class HikerCreateView(LoginRequiredMixin, CreateView):
+class HikerCreateView(CreateView):
     model = Hiker
     form_class = HikerCreationForm
+    template_name = "registration/sign_up.html"
+    success_url = reverse_lazy("login")
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("hikes:index")
+        return super().dispatch(request, *args, **kwargs)
 
 
-class HikerUpdateView(LoginRequiredMixin, UpdateView):
+class HikerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Hiker
     form_class = HikerUpdateForm
 
+    def test_func(self):
+        return self.request.user == self.get_object()
 
-class HikerDeleteView(LoginRequiredMixin, DeleteView):
+
+class HikerDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Hiker
     success_url = reverse_lazy("hikes:hiker-list")
+
+    def test_func(self):
+        return self.request.user == self.get_object()
 
 
 class ExpeditionListView(LoginRequiredMixin, ListView):
